@@ -1,0 +1,25 @@
+{
+  "name": "facebook-chat-bot",
+  "version": "1.0.0",
+  "description": "Simple Facebook Messenger Echo Bot using Node.js & Express",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test:webhook": "node test/mock-webhook.js"
+  },
+  "keywords": [
+    "facebook-bot",
+    "messenger-bot",
+    "webhook",
+    "graph-api",
+    "echo-bot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
