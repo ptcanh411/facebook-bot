@@ -1,4 +1,5 @@
 import { sendTextMessage } from '../services/messengerService.js';
+import { generateGeminiReply } from '../services/geminiService.js';
 
 /**
  * GET /webhook
@@ -47,13 +48,14 @@ export function handleIncomingMessage(req, res) {
       // Chỉ xử lý text message (bỏ qua postback, attachment, v.v.)
       if (event.message?.text) {
         const receivedText = event.message.text;
-        const echoText = `Bạn vừa nói: "${receivedText}"`;
 
         console.log(`📩 Nhận tin nhắn từ ${senderPsid}: "${receivedText}"`);
 
         try {
-          await sendTextMessage(senderPsid, echoText);
-          console.log(`📤 Đã echo lại cho ${senderPsid}`);
+          // Tạo câu trả lời thông minh qua Gemini AI (hoặc fallback về echo nếu chưa có key)
+          const replyText = await generateGeminiReply(receivedText);
+          await sendTextMessage(senderPsid, replyText);
+          console.log(`📤 Đã gửi phản hồi cho ${senderPsid}`);
         } catch (error) {
           console.error(`❌ Lỗi khi gửi tin nhắn cho ${senderPsid}:`, error.message);
         }
