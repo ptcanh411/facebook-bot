@@ -41,6 +41,25 @@ app.get('/terms', (req, res) => {
   `);
 });
 
+// User Data Deletion (Xóa dữ liệu người dùng)
+app.all('/data-deletion', (req, res) => {
+  if (req.method === 'POST') {
+    return res.json({
+      url: 'https://facebook-bot-8w03.onrender.com/data-deletion',
+      confirmation_code: 'del_' + Date.now(),
+    });
+  }
+  res.send(`
+    <html>
+      <head><title>Xóa dữ liệu - Facebook Messenger Bot</title></head>
+      <body style="font-family: sans-serif; padding: 20px; line-height: 1.6;">
+        <h1>Yêu cầu xóa dữ liệu</h1>
+        <p>Bot không lưu trữ dữ liệu người dùng. Nếu bạn muốn xóa dữ liệu liên kết, vui lòng ngắt kết nối bot trong cài đặt Messenger của bạn.</p>
+      </body>
+    </html>
+  `);
+});
+
 // Mount webhook routes
 app.use('/webhook', webhookRouter);
 
