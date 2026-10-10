@@ -52,8 +52,8 @@ export function handleIncomingMessage(req, res) {
         console.log(`📩 Nhận tin nhắn từ ${senderPsid}: "${receivedText}"`);
 
         try {
-          // Tạo câu trả lời thông minh qua Gemini AI (hoặc fallback về echo nếu chưa có key)
-          const replyText = await generateGeminiReply(receivedText);
+          // Tạo câu trả lời thông minh qua Gemini AI với bộ nhớ ngữ cảnh theo người dùng (senderPsid)
+          const replyText = await generateGeminiReply(receivedText, senderPsid);
           await sendTextMessage(senderPsid, replyText);
           console.log(`📤 Đã gửi phản hồi cho ${senderPsid}`);
         } catch (error) {
